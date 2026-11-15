@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>Signal Client</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="titlebar">
+      <div class="brand"><span class="dot" id="titleDot"></span> Signal Client</div>
+      <div class="win-controls">
+        <button id="btnMin" title="کوچک کردن">—</button>
+        <button id="btnClose" title="بستن به حالت پس‌زمینه">✕</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <h2>کانفیگ‌ها</h2>
+          <button class="icon-btn" id="btnAdd" title="افزودن کانفیگ">+</button>
+        </div>
+        <div class="profile-list" id="profileList"></div>
+        <div class="sidebar-foot">
+          <button class="text-btn" id="btnPingAll">تست پینگ همه</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <button class="icon-btn settings-btn" id="btnSettings" title="تنظیمات">⚙</button>
+
+        <div class="connect-dial" id="connectDial">
+          <div class="ring"></div>
+          <div class="core">
+            <div class="power-icon">⏻</div>
+            <div class="state-label" id="stateLabel">قطع</div>
+          </div>
+        </div>
+
+        <div class="current-profile" id="currentProfile">
+          <div class="name">کانفیگی انتخاب نشده</div>
+          <div class="meta">یکی از لیست سمت راست را انتخاب کنید</div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat"><div class="val" id="statPing">--</div><div class="lbl">پینگ (ms)</div></div>
+          <div class="stat"><div class="val" id="statUptime">00:00:00</div><div class="lbl">مدت اتصال</div></div>
+          <div class="stat"><div class="val" id="statPorts">--</div><div class="lbl">پورت SOCKS/HTTP</div></div>
+        </div>
+
+        <div class="sysproxy-row">
+          <span>تنظیم خودکار پراکسی سیستم</span>
+          <div class="switch" id="sysProxySwitch"><div class="knob"></div></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add profile modal -->
+  <div class="overlay" id="addOverlay">
+    <div class="modal">
+      <h3>افزودن کانفیگ</h3>
+      <div class="tabs">
+        <button class="active" data-tab="link">لینک تکی</button>
+        <button data-tab="sub">لینک سابسکریپشن</button>
+      </div>
+      <div id="tabLink">
+        <label>لینک (vmess:// یا vless:// یا trojan:// یا ss://) — هر خط یک لینک</label>
+        <textarea id="linkInput" placeholder="vless://...&#10;vmess://...&#10;trojan://..."></textarea>
+      </div>
+      <div id="tabSub" style="display:none">
+        <label>آدرس سابسکریپشن</label>
+        <input id="subInput" placeholder="https://example.com/sub/xxxx" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="btnCancelAdd">انصراف</button>
+        <button class="btn primary" id="btnConfirmAdd">افزودن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings modal -->
+  <div class="overlay" id="settingsOverlay">
+    <div class="modal">
+      <h3>تنظیمات</h3>
+      <div class="settings-grid">
+        <label>هسته‌ی پروکسی</label>
+        <div class="row">
+          <span id="bundledCoreLabel">هسته‌ی Xray داخلی (بسته‌شده با برنامه)</span>
+          <div class="switch" id="bundledCoreSwitch"><div class="knob"></div></div>
+        </div>
+        <div class="path-display" id="bundledCoreStatus"></div>
+
+        <label>یا مسیر سفارشی فایل اجرایی (v2ray.exe / xray.exe)</label>
+        <div class="row">
+          <button class="btn" id="btnChooseCore">انتخاب فایل...</button>
+        </div>
+        <div class="path-display" id="corePathDisplay">تنظیم نشده</div>
+
+        <label>پورت SOCKS محلی</label>
+        <input id="socksPortInput" type="number" value="10808" />
+
+        <label>پورت HTTP محلی</label>
+        <input id="httpPortInput" type="number" value="10809" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn" id="btnCloseSettings">بستن</button>
+        <button class="btn primary" id="btnSaveSettings">ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="parser.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
