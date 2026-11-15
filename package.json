@@ -1,0 +1,53 @@
+{
+  "name": "signal-client",
+  "version": "1.0.2",
+  "description": "کلاینت شخصی مدیریت کانفیگ‌های V2Ray/VLESS/VMess/Trojan/Shadowsocks برای ویندوز",
+  "author": "Signal Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable --x64",
+    "dist:dir": "electron-builder --win dir --x64"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.local.signalclient",
+    "productName": "Signal Client",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "Signal-Client-Portable.exe",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "portable": {
+      "artifactName": "Signal-Client-Portable.exe"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "core",
+        "to": "core",
+        "filter": ["**/*"]
+      }
+    ],
+    "asar": true,
+    "compression": "normal",
+    "forceCodeSigning": false
+  }
+}
